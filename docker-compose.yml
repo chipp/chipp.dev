@@ -1,0 +1,16 @@
+version: "3"
+services:
+  static:
+    image: ghcr.io/chipp/dev
+    expose:
+      - 8000
+    environment:
+      - VIRTUAL_HOST=chipp.dev
+      - VIRTUAL_PORT=8000
+      - LETSENCRYPT_HOST=chipp.dev
+      - LETSENCRYPT_EMAIL=chippcheg@gmail.com
+    restart: unless-stopped
+networks:
+  default:
+    external:
+      name: nginxproxy_default
