@@ -48,24 +48,24 @@ jobs:
          echo "${{ secrets.ssh_key }}" > ~/.ssh/id_rsa
          chmod -R 700 ~/.ssh/
 
-         ssh-keyscan -H ${{ secrets.ssh_host }} > ~/.ssh/known_hosts
+         ssh-keyscan -H ezio.chipp.dev > ~/.ssh/known_hosts
 
      - name: Copy artifacts
        run: |
          eval `ssh-agent -s`
          echo "${{ secrets.ssh_key_passphrase }}" | ssh-add ~/.ssh/id_rsa
 
-         ssh ${{ secrets.ssh_user }}@${{ secrets.ssh_host }} \
+         ssh github@ezio.chipp.dev \
            -i ~/.ssh/id_rsa \
            "echo test"
 
          scp Makefile docker-compose.yml \
-           ${{ secrets.ssh_user }}@${{ secrets.ssh_host }}:web/chipp.dev/
+           github@ezio.chipp.dev:/web/chipp.dev/
 
      - name: Deploy chipp.dev
        run: |
          eval `ssh-agent -s`
          echo "${{ secrets.ssh_key_passphrase }}" | ssh-add ~/.ssh/id_rsa
 
-         ssh ${{ secrets.ssh_user }}@${{ secrets.ssh_host }} \
-           "cd ~/web/chipp.dev/ && make deploy"
+         ssh github@ezio.chipp.dev \
+           "cd /web/chipp.dev/ && make deploy"

@@ -12,5 +12,4 @@ services:
     restart: unless-stopped
 networks:
   default:
-    external:
-      name: nginxproxy_default
+    name: nginx-proxy_default
