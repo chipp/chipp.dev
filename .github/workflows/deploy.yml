@@ -28,6 +28,7 @@ jobs:
         run: |
           docker buildx build . --file Dockerfile \
              --push \
+             --platform linux/arm64 \
              --tag ghcr.io/$OWNER/$REPO:latest \
              --cache-from=type=registry,ref=ghcr.io/$OWNER/$REPO:cache \
              --cache-to=type=registry,ref=ghcr.io/$OWNER/$REPO:cache,mode=max
